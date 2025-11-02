@@ -23,25 +23,6 @@
             color: #d8d8d8;
         }
 
-        /* 背景コード（ランダムフォールイング） */
-        .code-rain {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 0;
-            font-family: "Courier New", monospace;
-            font-size: 0.85rem;
-            opacity: 0.08;
-            white-space: pre;
-            color: #00ffff;
-            animation: scrollCode 12s linear infinite;
-        }
-
-        @keyframes scrollCode {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-100%); }
-        }
-
         /* 背景ノイズ */
         body::before {
             content: "";
@@ -58,7 +39,25 @@
             pointer-events: none;
         }
 
-        /* フェードイン共通 */
+        /* 背景コード */
+        .code-rain {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            font-family: "Courier New", monospace;
+            font-size: 0.85rem;
+            opacity: 0.06;
+            white-space: pre;
+            color: #00ffff;
+            animation: scrollCode 12s linear infinite;
+        }
+        @keyframes scrollCode {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100%); }
+        }
+
+        /* フェードイン */
         @keyframes fadeIn {
             0% { opacity: 0; transform: translateY(20px); }
             80% { opacity: .8; }
@@ -99,10 +98,10 @@
             animation: titlePulse 2.5s infinite alternate ease-in-out;
         }
 
-        /* 微振動（不穏な監視システム感） */
+        /* 不穏な微振動 */
         @keyframes titlePulse {
             0% { transform: translateX(0); }
-            100% { transform: translateX(1.2px); }
+            100% { transform: translateX(1px); }
         }
 
         .intro-subtitle {
@@ -112,7 +111,6 @@
             line-height: 1.9;
         }
 
-        /* ボタン アニメ＋セキュリティっぽく */
         .proceed-btn {
             background: rgba(0, 10, 15, 0.8);
             backdrop-filter: blur(5px);
@@ -135,7 +133,27 @@
             box-shadow: 0 0 16px rgba(0,255,255,0.4);
         }
 
-    
+        /* ▼ グリッチ演出 ▼ */
+        .glitch-screen {
+            position: fixed;
+            inset: 0;
+            background: repeating-linear-gradient(
+                to bottom,
+                rgba(0,255,255,0.15) 0,
+                rgba(0,0,0,0) 2px
+            );
+            display: none;
+            z-index: 20;
+            animation: glitchFlash 0.25s steps(2) infinite;
+            pointer-events: none;
+        }
+
+        @keyframes glitchFlash {
+            50% {
+                transform: translateX(5px);
+                opacity: 0.4;
+            }
+        }
 
         @media (max-width: 600px) {
             .intro-container {
@@ -152,35 +170,21 @@
 </head>
 <body>
 
-    <!-- 背景コード -->
     <div class="code-rain" id="codeRain"></div>
 
-    <!-- メインUI -->
     <div class="intro-container">
-        <h1 class="intro-title">Liminal Space<br>
-            脱出口生成フォームへようこそ</h1>
+        <h1 class="intro-title">Liminal Space<br>脱出口生成フォームへようこそ</h1>
         <p class="intro-subtitle">
             このシステムは狭間空間からの出口を生成するための専用フォームです。<br>
             ドアの画像を選択し、送信してください。
         </p>
-        <button class="proceed-btn" onclick="proceedToForm()">進む</button>
+        <button class="proceed-btn" id="proceedBtn">進む</button>
     </div>
 
-    <!-- アクセスログ -->
-    <div class="terminal-log" id="terminalLog"></div>
+    <!-- グリッチスクリーン -->
+    <div class="glitch-screen" id="glitchScreen"></div>
 
-    let i = 0;
-        const logContainer = document.getElementById("terminalLog");
-
-        function addLog() {
-            if (i < logs.length) {
-                logContainer.textContent += logs[i] + "\n";
-                i++;
-                setTimeout(addLog, 900 + Math.random() * 600);
-            }
-        }
-        setTimeout(addLog, 1000);
-
+    <script>
         // 背景コード生成
         const codeArea = document.getElementById("codeRain");
         const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%$&@";
@@ -196,9 +200,16 @@
         }
         codeArea.textContent = codeText;
 
-        function proceedToForm() {
-            window.location.href = 'https://hazamashobo.github.io/door/index.html';
-        }
+        // グリッチ演出＋遷移
+        const glitch = document.getElementById("glitchScreen");
+        const proceedBtn = document.getElementById("proceedBtn");
+
+        proceedBtn.addEventListener("click", () => {
+            glitch.style.display = "block";
+            setTimeout(() => {
+                window.location.href = 'https://hazamashobo.github.io/door/index.html';
+            }, 600); // グリッチ後に転送
+        });
     </script>
 </body>
 </html>
