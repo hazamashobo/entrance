@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internal Access Portal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Hiragino Mincho ProN","MS Mincho",serif;
+            background: #1a1a1a;
+            color: #cccccc;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .intro-container {
+            text-align: center;
+            max-width: 600px;
+            border: 1px solid #333;
+            padding: 60px 40px;
+            background: #222;
+        }
+
+        .intro-title {
+            font-size: 2rem;
+            font-weight: normal;
+            color: #ffffff;
+            letter-spacing: 0.1em;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .intro-subtitle {
+            font-size: 1rem;
+            color: #888888;
+            margin-bottom: 50px;
+            line-height: 1.8;
+        }
+
+        .proceed-btn {
+            background: #333;
+            border: 1px solid #555;
+            color: #cccccc;
+            padding: 15px 50px;
+            font-family: "Hiragino Mincho ProN","MS Mincho",serif;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.1em;
+        }
+
+        .proceed-btn:hover {
+            background: #444;
+            border-color: #666;
+        }
+
+        @media (max-width: 600px) {
+            .intro-container {
+                padding: 40px 30px;
+            }
+            .intro-title {
+                font-size: 1.5rem;
+            }
+            .intro-subtitle {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="intro-container">
+        <h1 class="intro-title">Liminal Space脱出口生成フォームへようこそ</h1>
+        <p class="intro-subtitle">
+            このシステムは狭間空間からの出口を生成するための特殊なフォームです。<br>
+            60枚の画像の中から正しいドアの画像を選択し、送信してください。
+        </p>
+        <button class="proceed-btn" onclick="proceedToForm()">進む</button>
+    </div>
+
+    <script>
+        function proceedToForm() {
+            // 実際のフォームページに遷移
+            window.location.href = 'form.html'; // フォームページのファイル名に変更してください
+        }
+    </script>
+</body>
+</html>
