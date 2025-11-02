@@ -89,7 +89,7 @@
     <script>
         function proceedToForm() {
             // 実際のフォームページに遷移
-            window.location.href = 'form.html'; // フォームページのファイル名に変更してください
+            window.location.href = 'https://hazamashobo.github.io/door/index.html'; // フォームページのファイル名に変更してください
         }
     </script>
 </body>
