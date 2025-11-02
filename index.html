@@ -5,145 +5,228 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Internal Access Portal</title>
     <style>
-       * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-body {
-    font-family: "Hiragino Mincho ProN","MS Mincho",serif;
-    background: #000;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    padding: 20px;
-}
+        body {
+            font-family: "Hiragino Mincho ProN","MS Mincho",serif;
+            background: #000;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 20px;
+            color: #d8d8d8;
+        }
 
-/* 背景ノイズ */
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background:
-        repeating-linear-gradient(
-            to bottom,
-            rgba(0,255,255,0.05) 0px,
-            rgba(0,255,255,0.05) 1px,
-            rgba(0,0,0,0) 2px
-        );
-    opacity: 0.08;
-    pointer-events: none;
-}
+        /* 背景コード（ランダムフォールイング） */
+        .code-rain {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            font-family: "Courier New", monospace;
+            font-size: 0.85rem;
+            opacity: 0.08;
+            white-space: pre;
+            color: #00ffff;
+            animation: scrollCode 12s linear infinite;
+        }
 
-/* フェードイン */
-.fade-in {
-    animation: fadeIn 1.8s ease forwards;
-    opacity: 0;
-}
+        @keyframes scrollCode {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100%); }
+        }
 
-@keyframes fadeIn {
-    0% { opacity: 0; transform: translateY(20px); }
-    80% { opacity: .8; }
-    100% { opacity: 1; transform: translateY(0); }
-}
+        /* 背景ノイズ */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background:
+                repeating-linear-gradient(
+                    to bottom,
+                    rgba(0,255,255,0.04) 0px,
+                    rgba(0,255,255,0.04) 1px,
+                    rgba(0,0,0,0) 2px
+                );
+            opacity: 0.08;
+            pointer-events: none;
+        }
 
-.intro-container {
-    text-align: center;
-    max-width: 650px;
-    padding: 60px 50px;
-    background: rgba(20, 20, 25, 0.35);
-    border: 1px solid rgba(0,255,255,0.08);
-    backdrop-filter: blur(10px);
-    position: relative;
-    overflow: hidden;
-    animation: fadeIn 2.2s ease forwards;
-}
+        /* フェードイン共通 */
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            80% { opacity: .8; }
+            100% { opacity: 1; transform: translateY(0); }
+        }
 
-/* 発光縁 */
-.intro-container::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border: 1px solid rgba(0,255,255,0.08);
-    pointer-events: none;
-    box-shadow: 0 0 30px rgba(0,255,255,0.15);
-}
+        .intro-container {
+            text-align: center;
+            max-width: 650px;
+            padding: 60px 50px;
+            background: rgba(20, 20, 25, 0.35);
+            border: 1px solid rgba(0,255,255,0.08);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 2.2s ease forwards;
+            opacity: 0;
+            z-index: 5;
+        }
 
-.intro-title {
-    font-size: 1.9rem;
-    color: #e6e6e6;
-    letter-spacing: 0.15em;
-    margin-bottom: 35px;
-    line-height: 1.6;
-    text-shadow: 0 0 12px rgba(0,255,255,0.25);
-    animation: titlePulse 2.5s infinite alternate ease-in-out;
-}
+        /* 発光縁 */
+        .intro-container::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border: 1px solid rgba(0,255,255,0.08);
+            pointer-events: none;
+            box-shadow: 0 0 30px rgba(0,255,255,0.15);
+        }
 
-/* 不穏な微振動 */
-@keyframes titlePulse {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(1.2px); }
-}
+        .intro-title {
+            font-size: 1.9rem;
+            color: #e6e6e6;
+            letter-spacing: 0.15em;
+            margin-bottom: 35px;
+            line-height: 1.6;
+            text-shadow: 0 0 12px rgba(0,255,255,0.25);
+            animation: titlePulse 2.5s infinite alternate ease-in-out;
+        }
 
-.intro-subtitle {
-    font-size: 1rem;
-    color: #a0a7ad;
-    margin-bottom: 55px;
-    line-height: 1.9;
-}
+        /* 微振動（不穏な監視システム感） */
+        @keyframes titlePulse {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(1.2px); }
+        }
 
-.proceed-btn {
-    background: rgba(0, 10, 15, 0.8);
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(0,255,255,0.3);
-    color: #cde;
-    padding: 15px 60px;
-    font-size: 1.1rem;
-    cursor: pointer;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    transition: all 0.25s ease;
-    opacity: 0;
-    animation: fadeIn 2.8s ease forwards;
-}
+        .intro-subtitle {
+            font-size: 1rem;
+            color: #a0a7ad;
+            margin-bottom: 55px;
+            line-height: 1.9;
+        }
 
-.proceed-btn:hover {
-    background: rgba(0,255,255,0.12);
-    border-color: rgba(0,255,255,0.45);
-    box-shadow: 0 0 16px rgba(0,255,255,0.4);
-}
+        /* ボタン アニメ＋セキュリティっぽく */
+        .proceed-btn {
+            background: rgba(0, 10, 15, 0.8);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(0,255,255,0.3);
+            color: #cde;
+            padding: 15px 60px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            transition: all 0.25s ease;
+            opacity: 0;
+            animation: fadeIn 2.8s ease forwards;
+            z-index: 6;
+        }
 
-@media (max-width: 600px) {
-    .intro-container {
-        padding: 45px 30px;
-    }
-    .intro-title {
-        font-size: 1.4rem;
-    }
-    .intro-subtitle {
-        font-size: 0.9rem;
-    }
-}
+        .proceed-btn:hover {
+            background: rgba(0,255,255,0.12);
+            border-color: rgba(0,255,255,0.45);
+            box-shadow: 0 0 16px rgba(0,255,255,0.4);
+        }
 
+        /* アクセスログ */
+        .terminal-log {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            width: calc(100% - 20px);
+            max-width: 600px;
+            font-size: 0.75rem;
+            font-family: "Courier New", monospace;
+            color: rgba(0, 255, 255, 0.55);
+            line-height: 1.4;
+            white-space: pre;
+            pointer-events: none;
+            opacity: 0;
+            animation: fadeIn 3.2s ease forwards;
+            z-index: 2;
+        }
+
+        @media (max-width: 600px) {
+            .intro-container {
+                padding: 45px 30px;
+            }
+            .intro-title {
+                font-size: 1.4rem;
+            }
+            .intro-subtitle {
+                font-size: 0.9rem;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="intro-container fade-in">
-        <h1 class="intro-title">Liminal Space脱出口生成フォームへようこそ</h1>
+
+    <!-- 背景コード -->
+    <div class="code-rain" id="codeRain"></div>
+
+    <!-- メインUI -->
+    <div class="intro-container">
+        <h1 class="intro-title">Liminal Space<br>
+            脱出口生成フォームへようこそ</h1>
         <p class="intro-subtitle">
-            このシステムは狭間空間からの出口を生成するための特殊なフォームです。<br>
-            60枚の画像の中から正しいドアの画像を選択し、送信してください。
+            このシステムは狭間空間からの出口を生成するための専用フォームです。<br>
+            ドアの画像を選択し、送信してください。
         </p>
         <button class="proceed-btn" onclick="proceedToForm()">進む</button>
     </div>
 
+    <!-- アクセスログ -->
+    <div class="terminal-log" id="terminalLog"></div>
+
     <script>
+        // ログ内容
+        const logs = [
+            "> SYSTEM BOOTING...",
+            "> Checking user authority...",
+            "> USER_ID: unknown",
+            "> ACCESS LEVEL: unauthorized",
+            "> Initiating observation...",
+            "> WARNING: signal interference detected",
+            "> Logging external activity...",
+            "> Standby...",
+        ];
+
+        let i = 0;
+        const logContainer = document.getElementById("terminalLog");
+
+        function addLog() {
+            if (i < logs.length) {
+                logContainer.textContent += logs[i] + "\n";
+                i++;
+                setTimeout(addLog, 900 + Math.random() * 600);
+            }
+        }
+        setTimeout(addLog, 1000);
+
+        // 背景コード生成
+        const codeArea = document.getElementById("codeRain");
+        const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%$&@";
+        const lines = 40;
+        const columns = 80;
+        let codeText = "";
+        for (let y = 0; y < lines; y++) {
+            let line = "";
+            for (let x = 0; x < columns; x++) {
+                line += characters[Math.floor(Math.random() * characters.length)];
+            }
+            codeText += line + "\n";
+        }
+        codeArea.textContent = codeText;
+
         function proceedToForm() {
-            // 実際のフォームページに遷移
-            window.location.href = 'https://hazamashobo.github.io/door/index.html'; // フォームページのファイル名に変更してください
+            window.location.href = 'https://hazamashobo.github.io/door/index.html';
         }
     </script>
 </body>
