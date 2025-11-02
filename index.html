@@ -135,23 +135,7 @@
             box-shadow: 0 0 16px rgba(0,255,255,0.4);
         }
 
-        /* アクセスログ */
-        .terminal-log {
-            position: fixed;
-            bottom: 10px;
-            left: 10px;
-            width: calc(100% - 20px);
-            max-width: 600px;
-            font-size: 0.75rem;
-            font-family: "Courier New", monospace;
-            color: rgba(0, 255, 255, 0.55);
-            line-height: 1.4;
-            white-space: pre;
-            pointer-events: none;
-            opacity: 0;
-            animation: fadeIn 3.2s ease forwards;
-            z-index: 2;
-        }
+    
 
         @media (max-width: 600px) {
             .intro-container {
@@ -185,20 +169,7 @@
     <!-- アクセスログ -->
     <div class="terminal-log" id="terminalLog"></div>
 
-    <script>
-        // ログ内容
-        const logs = [
-            "> SYSTEM BOOTING...",
-            "> Checking user authority...",
-            "> USER_ID: unknown",
-            "> ACCESS LEVEL: unauthorized",
-            "> Initiating observation...",
-            "> WARNING: signal interference detected",
-            "> Logging external activity...",
-            "> Standby...",
-        ];
-
-        let i = 0;
+    let i = 0;
         const logContainer = document.getElementById("terminalLog");
 
         function addLog() {
