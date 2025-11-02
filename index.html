@@ -5,75 +5,91 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Internal Access Portal</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+       * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        body {
-            font-family: "Hiragino Mincho ProN","MS Mincho",serif;
-            background: #1a1a1a;
-            color: #cccccc;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
+body {
+    font-family: "Hiragino Mincho ProN","MS Mincho",serif;
+    background: radial-gradient(circle at center, #1b1f24 0%, #0f0f0f 80%);
+    color: #d8d8d8;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
 
-        .intro-container {
-            text-align: center;
-            max-width: 600px;
-            border: 1px solid #333;
-            padding: 60px 40px;
-            background: #222;
-        }
+.intro-container {
+    text-align: center;
+    max-width: 650px;
+    padding: 60px 50px;
+    background: rgba(34, 34, 34, 0.3);
+    border: 1px solid rgba(255,255,255,0.05);
+    backdrop-filter: blur(8px);
+    position: relative;
+    overflow: hidden;
+}
 
-        .intro-title {
-            font-size: 2rem;
-            font-weight: normal;
-            color: #ffffff;
-            letter-spacing: 0.1em;
-            margin-bottom: 30px;
-            line-height: 1.6;
-        }
+/* 光る枠演出 */
+.intro-container::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(255,255,255,0.05);
+    pointer-events: none;
+    filter: drop-shadow(0 0 6px rgba(0, 255, 255, 0.2));
+}
 
-        .intro-subtitle {
-            font-size: 1rem;
-            color: #888888;
-            margin-bottom: 50px;
-            line-height: 1.8;
-        }
+.intro-title {
+    font-size: 1.9rem;
+    color: #e6e6e6;
+    letter-spacing: 0.15em;
+    margin-bottom: 35px;
+    line-height: 1.6;
+    text-shadow: 0 0 10px rgba(200,255,255,0.2);
+}
 
-        .proceed-btn {
-            background: #333;
-            border: 1px solid #555;
-            color: #cccccc;
-            padding: 15px 50px;
-            font-family: "Hiragino Mincho ProN","MS Mincho",serif;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            letter-spacing: 0.1em;
-        }
+.intro-subtitle {
+    font-size: 1rem;
+    color: #9da5ad;
+    margin-bottom: 55px;
+    line-height: 1.9;
+}
 
-        .proceed-btn:hover {
-            background: #444;
-            border-color: #666;
-        }
+.proceed-btn {
+    background: rgba(20, 20, 20, 0.8);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(0,255,255,0.2);
+    color: #d8d8d8;
+    padding: 15px 60px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
 
-        @media (max-width: 600px) {
-            .intro-container {
-                padding: 40px 30px;
-            }
-            .intro-title {
-                font-size: 1.5rem;
-            }
-            .intro-subtitle {
-                font-size: 0.9rem;
-            }
-        }
+.proceed-btn:hover {
+    background: rgba(0,255,255,0.12);
+    border-color: rgba(0,255,255,0.4);
+    box-shadow: 0 0 12px rgba(0,255,255,0.35);
+}
+
+@media (max-width: 600px) {
+    .intro-container {
+        padding: 45px 30px;
+    }
+    .intro-title {
+        font-size: 1.4rem;
+    }
+    .intro-subtitle {
+        font-size: 0.9rem;
+    }
+}
+
     </style>
 </head>
 <body>
