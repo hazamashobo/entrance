@@ -13,34 +13,63 @@
 
 body {
     font-family: "Hiragino Mincho ProN","MS Mincho",serif;
-    background: radial-gradient(circle at center, #1b1f24 0%, #0f0f0f 80%);
-    color: #d8d8d8;
+    background: #000;
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
     padding: 20px;
+}
+
+/* 背景ノイズ */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background:
+        repeating-linear-gradient(
+            to bottom,
+            rgba(0,255,255,0.05) 0px,
+            rgba(0,255,255,0.05) 1px,
+            rgba(0,0,0,0) 2px
+        );
+    opacity: 0.08;
+    pointer-events: none;
+}
+
+/* フェードイン */
+.fade-in {
+    animation: fadeIn 1.8s ease forwards;
+    opacity: 0;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(20px); }
+    80% { opacity: .8; }
+    100% { opacity: 1; transform: translateY(0); }
 }
 
 .intro-container {
     text-align: center;
     max-width: 650px;
     padding: 60px 50px;
-    background: rgba(34, 34, 34, 0.3);
-    border: 1px solid rgba(255,255,255,0.05);
-    backdrop-filter: blur(8px);
+    background: rgba(20, 20, 25, 0.35);
+    border: 1px solid rgba(0,255,255,0.08);
+    backdrop-filter: blur(10px);
     position: relative;
     overflow: hidden;
+    animation: fadeIn 2.2s ease forwards;
 }
 
-/* 光る枠演出 */
+/* 発光縁 */
 .intro-container::before {
     content: "";
     position: absolute;
     inset: 0;
-    border: 1px solid rgba(255,255,255,0.05);
+    border: 1px solid rgba(0,255,255,0.08);
     pointer-events: none;
-    filter: drop-shadow(0 0 6px rgba(0, 255, 255, 0.2));
+    box-shadow: 0 0 30px rgba(0,255,255,0.15);
 }
 
 .intro-title {
@@ -49,33 +78,42 @@ body {
     letter-spacing: 0.15em;
     margin-bottom: 35px;
     line-height: 1.6;
-    text-shadow: 0 0 10px rgba(200,255,255,0.2);
+    text-shadow: 0 0 12px rgba(0,255,255,0.25);
+    animation: titlePulse 2.5s infinite alternate ease-in-out;
+}
+
+/* 不穏な微振動 */
+@keyframes titlePulse {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(1.2px); }
 }
 
 .intro-subtitle {
     font-size: 1rem;
-    color: #9da5ad;
+    color: #a0a7ad;
     margin-bottom: 55px;
     line-height: 1.9;
 }
 
 .proceed-btn {
-    background: rgba(20, 20, 20, 0.8);
-    backdrop-filter: blur(4px);
-    border: 1px solid rgba(0,255,255,0.2);
-    color: #d8d8d8;
+    background: rgba(0, 10, 15, 0.8);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(0,255,255,0.3);
+    color: #cde;
     padding: 15px 60px;
     font-size: 1.1rem;
     cursor: pointer;
-    transition: all 0.3s ease;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
+    transition: all 0.25s ease;
+    opacity: 0;
+    animation: fadeIn 2.8s ease forwards;
 }
 
 .proceed-btn:hover {
     background: rgba(0,255,255,0.12);
-    border-color: rgba(0,255,255,0.4);
-    box-shadow: 0 0 12px rgba(0,255,255,0.35);
+    border-color: rgba(0,255,255,0.45);
+    box-shadow: 0 0 16px rgba(0,255,255,0.4);
 }
 
 @media (max-width: 600px) {
@@ -93,7 +131,7 @@ body {
     </style>
 </head>
 <body>
-    <div class="intro-container">
+    <div class="intro-container fade-in">
         <h1 class="intro-title">Liminal Space脱出口生成フォームへようこそ</h1>
         <p class="intro-subtitle">
             このシステムは狭間空間からの出口を生成するための特殊なフォームです。<br>
